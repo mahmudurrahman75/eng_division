@@ -18,6 +18,4 @@ class TestController extends Controller
         return $this->response('Testing Successfully', true, $data, 200);
     }
 
-    
-
 }
