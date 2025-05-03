@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class SubBranchMeasurement extends Model
 {
-    protected $fillable = ['name', 'BranchName', 'remarks'];
+    protected $fillable = ['name', 'branchName', 'remarks'];
 }

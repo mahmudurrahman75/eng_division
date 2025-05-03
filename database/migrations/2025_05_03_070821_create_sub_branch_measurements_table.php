@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('sub_branch_measurements', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('BranchName');
+            $table->string('branchName');
             $table->boolean('remarks')->default(0);
             $table->timestamps();
         });

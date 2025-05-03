@@ -7,6 +7,7 @@ use App\Http\Controllers\BranchController;
 use App\Http\Controllers\SubBranchController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\BranchMeasurementController;
+use App\Http\Controllers\SubBranchMeasurementController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -39,7 +40,7 @@ Route::post('/update-branch-measurement/{id}', [BranchMeasurementController::cla
 Route::delete('/delete-branch-measurement/{id}', [BranchMeasurementController::class, 'delete']);
 
 // Sub Branch Measurement API
-
+Route::post('/create-sub-branch-measurement', [SubBranchMeasurementController::class, 'create']);
 
 
 
