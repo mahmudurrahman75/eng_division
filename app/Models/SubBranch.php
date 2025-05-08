@@ -3,8 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Branch;
 
 class SubBranch extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'branch_id'];
+
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class, 'branch_id');
+    }
+
 }

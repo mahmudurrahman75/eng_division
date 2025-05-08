@@ -15,19 +15,29 @@ class SubBranchController extends Controller
         // Validate the request
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255|unique:sub_branches,name',
+            'branch_id' => 'required|exists:branches,id', // <-- add this line to validate branch_id
         ]);
 
         if ($validator->fails()) {
-            return $this->response('Validation Failed',false,$validator->errors(),422);
+            return $this->response('Validation Failed', false, $validator->errors(), 422);
         }
 
-        // Create the branch
-        $sub_branch = SubBranch::create([
-            'name' => $request->name,
-        ]);
+        try {
+            // Create the sub-branch
+            $sub_branch = SubBranch::create([
+                'branch_id' => $request->branch_id,
+                'name' => $request->name,
+            ]);
 
-        return $this->response('SubBranch created successfully.',true,$sub_branch,200);
+            return $this->response('SubBranch created successfully.', true, $sub_branch, 200);
+        } catch (\Exception $e) {
+            // Catch and handle DB or other errors
+            return $this->response('Failed to create sub-branch.', false, [
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
+
 
 
     public function get_all_subBranch() {

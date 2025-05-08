@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('sub_branches', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('branch_id'); // Column ki name e hobe
+            $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade'); // Branch er sathe link korlam
             $table->string('name');
             $table->timestamps();
         });
