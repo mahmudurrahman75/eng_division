@@ -8,12 +8,18 @@ use App\Http\Controllers\SubBranchController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\BranchMeasurementController;
 use App\Http\Controllers\SubBranchMeasurementController;
+use App\Http\Controllers\DistrictController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
 Route::get('/test',[TestController::class, 'test']);
+
+
+// District API
+Route::post('/create-district',[DistrictController::class, 'create']);
+
 
 // Branch API
 Route::post('/create-branch',[BranchController::class,'create']);
