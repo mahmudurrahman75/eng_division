@@ -8,7 +8,7 @@ use App\Models\District;
 
 class Branch extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'district_id'];
 
 
     public function subBranches()

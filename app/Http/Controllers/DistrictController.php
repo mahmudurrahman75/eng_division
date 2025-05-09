@@ -20,10 +20,8 @@ class DistrictController extends Controller
         }
 
         // Create the branch
-        $branch = District::create([
-            'name' => $request->name,
-        ]);
+        $district = District::create(['name' => $request->name,]);
 
-        return $this->response('District created successfully.',true,$branch,200);
+        return $this->response('District created successfully.',true,$district,200);
     }
 }
