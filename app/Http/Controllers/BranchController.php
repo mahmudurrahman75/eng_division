@@ -13,25 +13,43 @@ class BranchController extends Controller
         // Validate the request
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255|unique:branches,name',
+            'district_id' => 'required|exists:districts,id',
         ]);
 
         if ($validator->fails()) {
-            return $this->response('Validation Failed',false,$validator->errors(),422);
+            return $this->response('Validation Failed', false, $validator->errors(), 422);
         }
 
         // Create the branch
         $branch = Branch::create([
             'name' => $request->name,
+            'district_id' => $request->district_id,
         ]);
 
-        return $this->response('Branch created successfully.',true,$branch,200);
+        return $this->response('Branch created successfully.', true, $branch, 200);
     }
+
 
 
     public function get_all_branch() {
-        $results = Branch::all();
-        return $this->response('All Branch Retrieved Successfully',true,$results,200);
+        // Eager load the district relationship
+        $branches = Branch::with('district')->get();
+
+        // Transform the data to include district_name
+        $results = $branches->map(function($branch) {
+            return [
+                'id' => $branch->id,
+                'name' => $branch->name,
+                'district_id' => $branch->district_id,
+                'district_name' => $branch->district ? $branch->district->name : null,
+                'created_at' => $branch->created_at,
+                'updated_at' => $branch->updated_at,
+            ];
+        });
+
+        return $this->response('All Branch Retrieved Successfully', true, $results, 200);
     }
+
 
 
     public function update(Request $request, $id)
